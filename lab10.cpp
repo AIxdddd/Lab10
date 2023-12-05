@@ -29,6 +29,13 @@ void zero(int* vis, int size) {
 	return;
 
 }
+void zerok(int* vis, int size) {
+	for (int k = 0; k < size; k++) {
+		vis[k] = 0;
+	}
+	return;
+
+}
 int main(int wz,char *m[]) {
 	setlocale(LC_ALL, "");
 	queue <int> SomeQ;
@@ -40,6 +47,7 @@ int main(int wz,char *m[]) {
 	int size;
 	int* Num;
 	int* EXC;
+	int* ZEN;
 	int w;
 	srand(2413254);
 	scanf("%d", &size);
@@ -47,12 +55,14 @@ int main(int wz,char *m[]) {
 	w = size;
 	Num = (int*)malloc(sizeof(int) * size);
 	EXC = (int*)malloc(sizeof(int) * size);
+	ZEN = (int*)malloc(sizeof(int) * size);
 	mas = (int**)malloc(sizeof(int*) * size);
 	int j = 0;
 	int i = 0;
 	setlocale(LC_ALL, "");
 	zero(Num, size);
 	zero(EXC, size);
+	zerok(ZEN, size);
 	while (size > i) {
 		j = 0;
 		mas[i] = (int*)malloc(sizeof(int) * w);
@@ -109,7 +119,7 @@ int main(int wz,char *m[]) {
 	int ex=0;
 	int deam = 0;
 	int rad = 9999;
-	
+	int zen = 9999;
 	printf("\n");
 	for (int i = 0;i<size;i++) {
 		zero(Num, size);
@@ -120,7 +130,10 @@ int main(int wz,char *m[]) {
 		for (int j = 0; j < size; j++) {
 			printf("%d\t", Num[j]);
 			if (Num[j] > ex) { ex = Num[j]; }
+			ZEN[i]=ZEN[i]+Num[j];
+			
 		}
+		if (ZEN[i]<zen){zen= ZEN[i];}
 		EXC[i] = ex;
 		printf("Эксцентриситет %d\n", EXC[i]);
 		for (int j = 0; j < size; j++) {
@@ -132,6 +145,12 @@ int main(int wz,char *m[]) {
 		ex = 0;
 
 	}
+	int kkkk;
+	for(int i=0;i<size;i++){
+		if(ZEN[i]==zen){kkkk=i;}
+
+	}
+
 	printf("Деаметр %d\n", deam);
 	printf("Радиус %d\n", rad);
 	printf("Центральные вершины:\n");
@@ -144,6 +163,13 @@ int main(int wz,char *m[]) {
 		if (EXC[j] == deam) {printf("Вершина %d\n", j+1); }
 
 	}
+	for(int i=0;i<size;i++){
+		printf("Вес вершины %d %d\n",i+1,ZEN[i]);
+		
+
+	}
+	printf("Центры тяжести %d\n",kkkk+1);
+
 	int a = 0;
 	scanf("%d", &a);
 
